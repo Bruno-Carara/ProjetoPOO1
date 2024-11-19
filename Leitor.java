@@ -2,7 +2,6 @@ package Eleição;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-aaaa
 import java.util.HashMap;
 import java.util.Map;
 public class Leitor extends Main{
