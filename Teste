@@ -1,12 +1,45 @@
-public static void Calcular_QE(Map<Integer, Integer> Votos_Candidato) {
-    int soma = 0;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
-    for (Map.Entry<Integer, Integer> entrada : Votos_Candidato.entrySet()) {
-        String candidatoStr = String.valueOf(entrada.getKey()); // Converte a chave para string
-        if (!candidatoStr.startsWith("0") && !candidatoStr.startsWith("1")) {
-            soma += entrada.getValue(); // Soma os votos se não começar com 0 ou 1
-        }
+public class ProcessaVotos {
+
+    public static void main(String[] args) {
+        String arquivo = "votos.txt"; // Substitua pelo caminho do seu arquivo
+        Map<Integer, Integer> votos = lerVotos(arquivo);
+        somarVotosChaveNaoComecaCom01(votos);
     }
 
-    System.out.println("Soma de votos para candidatos que não começam com 0 ou 1: " + soma);
+    // Método para ler o arquivo e preencher o HashMap
+    public static Map<Integer, Integer> lerVotos(String arquivo) {
+        Map<Integer, Integer> votos = new HashMap<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
+            String linha;
+            while ((linha = br.readLine()) != null) {
+                String[] partes = linha.split(";");
+                int chave = Integer.parseInt(partes[0]); // Número do candidato
+                int valor = Integer.parseInt(partes[1]); // Quantidade de votos
+                votos.put(chave, votos.getOrDefault(chave, 0) + valor);
+            }
+        } catch (IOException e) {
+            System.out.println("Erro ao ler o arquivo: " + e.getMessage());
+        }
+        return votos;
+    }
+
+    // Método para somar votos cujas chaves não começam com 0 ou 1
+    public static void somarVotosChaveNaoComecaCom01(Map<Integer, Integer> votos) {
+        int soma = 0;
+
+        for (Map.Entry<Integer, Integer> entrada : votos.entrySet()) {
+            String chaveStr = String.valueOf(entrada.getKey());
+            if (!chaveStr.startsWith("0") && !chaveStr.startsWith("1")) {
+                soma += entrada.getValue();
+            }
+        }
+
+        System.out.println("Soma de votos para candidatos que não começam com 0 ou 1: " + soma);
+    }
 }
