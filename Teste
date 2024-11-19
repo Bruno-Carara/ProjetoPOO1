@@ -1,0 +1,12 @@
+public static void Calcular_QE(Map<Integer, Integer> Votos_Candidato) {
+    int soma = 0;
+
+    for (Map.Entry<Integer, Integer> entrada : Votos_Candidato.entrySet()) {
+        String candidatoStr = String.valueOf(entrada.getKey()); // Converte a chave para string
+        if (!candidatoStr.startsWith("0") && !candidatoStr.startsWith("1")) {
+            soma += entrada.getValue(); // Soma os votos se não começar com 0 ou 1
+        }
+    }
+
+    System.out.println("Soma de votos para candidatos que não começam com 0 ou 1: " + soma);
+}
