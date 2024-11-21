@@ -45,13 +45,6 @@ public class Leitor extends Main{
 				String[] partes = linha.split(";");
 				int candidato = Integer.parseInt(partes[1]);
 				Candidatos.put(candidato, Candidatos.getOrDefault(candidato, 0) + 1);
-				if (candidato == 0) {
-					Nulos++;
-				} else if (candidato == 1) {
-					Brancos++;
-				} else {
-					Válidos++;
-				} 
 			}
 		} catch (IOException e) {
 			System.out.println("Erro ao ler o arquivo: " + e.getMessage());
@@ -93,5 +86,45 @@ public class Leitor extends Main{
 			System.out.println("Erro ao ler o arquivo: " + e.getMessage());
 		}
 		return Válidos;
+	}
+	
+	public static int ler_brancos(String arquivo) {
+
+		Map<Integer, Integer> Candidatos = new HashMap<>();
+
+		try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
+			String linha;
+			while ((linha = br.readLine()) != null) {
+				String[] partes = linha.split(";");
+				int candidato = Integer.parseInt(partes[1]);
+				Candidatos.put(candidato, Candidatos.getOrDefault(candidato, 0) + 1);
+				if (candidato == 1){
+					Brancos++;
+				} 
+			}
+		} catch (IOException e) {
+			System.out.println("Erro ao ler o arquivo: " + e.getMessage());
+		}
+		return Brancos;
+	}
+
+	public static int ler_nulos(String arquivo) {
+
+		Map<Integer, Integer> Candidatos = new HashMap<>();
+
+		try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
+			String linha;
+			while ((linha = br.readLine()) != null) {
+				String[] partes = linha.split(";");
+				int candidato = Integer.parseInt(partes[1]);
+				Candidatos.put(candidato, Candidatos.getOrDefault(candidato, 0) + 1);
+				if (candidato == 0){
+					Nulos++;
+				} 
+			}
+		} catch (IOException e) {
+			System.out.println("Erro ao ler o arquivo: " + e.getMessage());
+		}
+		return Nulos;
 	}
 }
