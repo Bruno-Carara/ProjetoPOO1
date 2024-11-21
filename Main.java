@@ -11,14 +11,17 @@ public class Main {
 		
 		Map<Integer, Integer> Votos_Candidato= Leitor.ler_votos(arquivo);		
 		Map<Integer, Integer> Votos_Urna= Leitor.ler_urna(arquivo);	
-				
+		int votos_válidos = Leitor.ler_válidos(arquivo);
+		
 		
 		
 		System.out.println(Leitor.ler_urna(arquivo));
 		
 		System.out.println(Leitor.ler_votos(arquivo));
 		
-		Relatório.Calcular_QE(Votos_Candidato);
+		float QE = Relatório.Calcular_QE(votos_válidos);
+		
+		Relatório.Calcular_QP(Votos_Candidato);
 	}
 
 }
